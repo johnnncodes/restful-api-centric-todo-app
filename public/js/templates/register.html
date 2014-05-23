@@ -1,0 +1,36 @@
+<h3>Signup Form</h3>
+
+<ul>
+    <li ng-repeat="error in errors" class="alert alert-danger">
+        {{error}}
+    </li>
+</ul>
+
+<form class="form-horizontal" name="userForm" ng-submit="register(userForm.$valid, data.email, data.password, data.passwordConfirmation)" novalidate>
+    <div class="form-group">
+        <label class="col-sm-4 control-label">Email</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" name="email" placeholder="Email" ng-model="data.email" required>
+            <p ng-show="userForm.email.$invalid && !userForm.email.$pristine" class="help-block">Your email is required.</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label">Password</label>
+        <div class="col-sm-4">
+            <input type="password" name="password" class="form-control" placeholder="Password" ng-model="data.password" required>
+            <p ng-show="userForm.password.$invalid && !userForm.password.$pristine" class="help-block">Password is required.</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label">Password Confirmation</label>
+        <div class="col-sm-4">
+            <input type="password" name="passwordConfirmation" class="form-control" placeholder="Password" ng-model="data.passwordConfirmation" required>
+            <p ng-show="userForm.passwordConfirmation.$invalid && !userForm.passwordConfirmation.$pristine" class="help-block">Password confirmation is required.</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-10">
+            <button type="submit" class="btn btn-primary">Register</button>
+        </div>
+    </div>
+</form>

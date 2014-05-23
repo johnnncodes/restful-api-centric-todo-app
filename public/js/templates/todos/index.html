@@ -1,0 +1,27 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                <h4>Todo</h4>
+            </th>
+            <th colspan="2">
+                <h4>Actions</h4>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="todo in todos">
+            <td>
+                <p>
+                    {{todo.name}}
+                </p>
+            </td>
+            <td>
+                <a class="btn btn-primary" href="#/todos/{{todo._id}}/edit">Edit</a>
+            </td>
+            <td>
+                <a class="btn btn-danger" href="#" ng-click="delete(todo._id)">Delete</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
