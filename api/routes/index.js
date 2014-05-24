@@ -176,11 +176,25 @@ module.exports = function(app) {
         todo.name = req.param('name');
         todo.save(function(err, todo){
           if (err) {
-            return res.json(500, {});
+            console.log(err);
+
+            switch(err.name) {
+              case 'ValidationError':
+                err = formatValidationErrors(err);
+                console.log(err);
+                return res.json(422, err);
+                break;
+              case 'MongoError':
+                if (err.code === 11000) {
+                  return res.json(422, {});
+                  break;
+                }
+              default:
+                return res.send(500, {});
+            }
           }
           return res.json(200);
         });
-        return res.json(200);
       } else {
         return res.json(400, {});
       }

@@ -67,8 +67,8 @@ appControllers.controller('TodoCtrl', ['$scope', '$location', '$window', 'UserSe
     }
 ]);
 
-appControllers.controller('EditTodoCtrl', ['$scope', '$location', '$window', 'UserService', 'SessionService', 'TodoService', '$routeParams',
-    function EditTodoCtrl($scope, $location, $window, UserService, SessionService, TodoService, $routeParams) {
+appControllers.controller('EditTodoCtrl', ['$scope', '$location', '$window', 'UserService', 'SessionService', 'TodoService', '$routeParams', 'UtilsService',
+    function EditTodoCtrl($scope, $location, $window, UserService, SessionService, TodoService, $routeParams, UtilsService) {
 
         $scope.todo = null;
 
@@ -82,9 +82,10 @@ appControllers.controller('EditTodoCtrl', ['$scope', '$location', '$window', 'Us
         $scope.update = function(id, name) {
             TodoService.update(id, name).success(function(data) {
                 $location.path('/todos');
-            }).error(function(status, data) {
-                console.log(status);
+            }).error(function(data, status) {
                 console.log(data);
+                console.log(status);
+                $scope.errors = UtilsService.parseErrors(data.errors);
             });
         }
     }
