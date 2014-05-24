@@ -22,7 +22,7 @@ appControllers.controller('UserCtrl', ['$scope', '$location', '$window', 'UserSe
         $scope.signIn = function signIn(email, password) {
             UserService.signIn(email, password).success(function(data, status) {
                 SessionService.setIsAuthenticated(true);
-                SessionService.setToken(data.token);
+                // SessionService.setToken(data.token);
                 $location.path("/todos");
             }).error(function(data, status) {
                 console.log(data);
@@ -43,7 +43,7 @@ appControllers.controller('TodoCtrl', ['$scope', '$location', '$window', 'UserSe
         $scope.todos = [];
 
         TodoService.findAll().success(function(data) {
-            $scope.todos = data;
+            $scope.todos = data.todos;
         });
 
         $scope.create = function(name) {
@@ -73,7 +73,7 @@ appControllers.controller('EditTodoCtrl', ['$scope', '$location', '$window', 'Us
         $scope.todo = null;
 
         TodoService.findOne($routeParams.id).success(function(data) {
-            $scope.todo = data;
+            $scope.todo = data.todo;
         }).error(function(data, status) {
             console.log(data);
             console.log(status);

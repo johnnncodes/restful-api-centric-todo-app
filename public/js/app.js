@@ -37,12 +37,25 @@ var loginRequired = function($location, SessionService, $q, $timeout) {
     return deferred.promise;
 }
 
+var refreshToken = function(SessionService, TokenService) {
+    if (SessionService.getIsAuthenticated() == 'true' && SessionService.getToken() != 'false') {
+        TokenService.refresh().success(function(data) {
+            console.log('token successfully refreshed');
+        }).error(function(data, status) {
+            console.log(data);
+            console.log(status);
+            console.log('failed to refresh token');
+        });
+    }
+}
+
 app.config(['$locationProvider', '$routeProvider',
     function($location, $routeProvider) {
         $routeProvider.
             when('/', {
                 templateUrl: '/js/templates/home.html',
-                controller: 'HomeCtrl'
+                controller: 'HomeCtrl',
+                resolve: { refreshToken: refreshToken }
             }).
             when('/register', {
                 templateUrl: '/js/templates/register.html',

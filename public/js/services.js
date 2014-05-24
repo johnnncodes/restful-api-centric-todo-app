@@ -34,6 +34,12 @@ appServices.factory('TokenInterceptor', function ($q, $window, $location, Sessio
         },
 
         response: function (response) {
+            // save new token if there is a new token sent to the client
+            if (response.data.token != undefined) {
+                SessionService.setToken(response.data.token);
+                console.log(SessionService.getToken());
+            }
+
             return response || $q.when(response);
         },
 
@@ -94,6 +100,14 @@ appServices.factory('UtilsService', function() {
             });
 
             return errors;
+        }
+    };
+});
+
+appServices.factory('TokenService', function($http) {
+    return {
+        refresh: function(id, name) {
+            return $http.get(options.api.base_url + '/tokens/refresh');
         }
     };
 });
