@@ -44,16 +44,15 @@ appServices.factory('TokenInterceptor', function ($q, $window, $location, Sessio
         },
 
         /* Revoke client authentication if 401 is received */
-        // responseError: function(rejection) {
-        //     if (rejection != null && rejection.status === 401 && (SessionService.getToken() || SessionService.getIsAuthenticated())) {
-        //         //delete $window.sessionStorage.token;
-        //         SessionService.setToken(false);
-        //         SessionService.setIsAuthenticated(false);
-        //         $location.path("/admin/login");
-        //     }
+        responseError: function(rejection) {
+            if (rejection != null && rejection.status === 401 && (SessionService.getToken() || SessionService.getIsAuthenticated())) {
+                SessionService.setToken(false);
+                SessionService.setIsAuthenticated(false);
+                $location.path("/login");
+            }
 
-        //     return $q.reject(rejection);
-        // }
+            return $q.reject(rejection);
+        }
     };
 });
 
