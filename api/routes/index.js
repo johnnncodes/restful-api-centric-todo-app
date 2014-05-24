@@ -93,7 +93,7 @@ module.exports = function(app) {
         delete account.password;
         console.log(account);
 
-        var token = jwt.sign(account, secretToken, { expiresInMinutes: 60 });
+        var token = jwt.sign(account, secretToken, { expiresInMinutes: 1440 });
         return res.json({token:token});
       });
     });
