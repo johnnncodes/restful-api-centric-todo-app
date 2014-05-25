@@ -1,7 +1,6 @@
 // NOTE: localstorage cannot store boolean values so the values will be converted to string,
 // it means when we get a record on localstorage, the type of the value is also string
 appServices.factory('SessionService', ['localStorageService', function(localStorageService) {
-    window.localStorageService = localStorageService;
     return {
         getIsAuthenticated: function(val) {
             if (localStorageService.get('token')) {
