@@ -20,15 +20,15 @@ html(ng-app="app")
                   a.navbar-brand(href='#') HipTodo
                 .navbar-collapse.collapse
                   ul.nav.navbar-nav
-                    li(ng-show="isLoggedIn == 'false'")
+                    li(ng-show="! isLoggedIn ")
                       a(href='#/register') Register
-                    li(ng-show="isLoggedIn == 'false'")
+                    li(ng-show="! isLoggedIn")
                       a(href='#/login') Login
-                    li(ng-show="isLoggedIn == 'true'")
+                    li(ng-show="isLoggedIn")
                       a(href='#/logout') Logout
-                    li(ng-show="isLoggedIn == 'true'")
+                    li(ng-show="isLoggedIn")
                       a(href='#/todos/create' ng-show="isLoggedIn") Add Todo
-                    li(ng-show="isLoggedIn == 'true'")
+                    li(ng-show="isLoggedIn")
                       a(href='#/todos' ng-show="isLoggedIn") View Todos
 
     .container

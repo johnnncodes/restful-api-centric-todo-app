@@ -13,7 +13,7 @@ var redirectIfAuthenticated = function(route) {
 
         var deferred = $q.defer();
 
-        if (SessionService.getIsAuthenticated() == 'true' && SessionService.getToken() != 'false') {
+        if (SessionService.getIsAuthenticated()) {
             deferred.reject()
             $location.path(route);
         } else {
@@ -27,7 +27,7 @@ var redirectIfAuthenticated = function(route) {
 var loginRequired = function($location, SessionService, $q, $timeout) {
     var deferred = $q.defer();
 
-    if(SessionService.getIsAuthenticated() == 'false' && SessionService.getToken() == 'false') {
+    if(! SessionService.getIsAuthenticated()) {
         deferred.reject()
         $location.path('/login');
     } else {

@@ -21,7 +21,6 @@ appControllers.controller('UserCtrl', ['$scope', '$location', '$window', 'UserSe
 
         $scope.signIn = function signIn(email, password) {
             UserService.signIn(email, password).success(function(data, status) {
-                SessionService.setIsAuthenticated(true);
                 SessionService.setToken(data.token);
                 $location.path("/todos");
             }).error(function(data, status) {
@@ -102,8 +101,7 @@ appControllers.controller('HeaderCtrl', ['$scope', '$location', '$window', 'User
 
 appControllers.controller('LogoutCtrl', ['$scope', '$location', '$window', 'UserService', 'SessionService',
     function LogoutCtrl($scope, $location, $window, UserService, SessionService) {
-        SessionService.setIsAuthenticated(false);
-        SessionService.setToken(false);
+        SessionService.setToken(null);
         $location.path("/login");
     }
 ]);

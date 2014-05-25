@@ -1,13 +1,13 @@
 // NOTE: localstorage cannot store boolean values so the values will be converted to string,
 // it means when we get a record on localstorage, the type of the value is also string
 appServices.factory('SessionService', ['localStorageService', function(localStorageService) {
+    window.localStorageService = localStorageService;
     return {
-        setIsAuthenticated: function(val) {
-            return localStorageService.set('isAuthenticated', val);
-        },
-
         getIsAuthenticated: function(val) {
-            return localStorageService.get('isAuthenticated');
+            if (localStorageService.get('token')) {
+                return true;
+            }
+            return false;
         },
         setToken: function(val) {
             return localStorageService.set('token', val);
@@ -39,9 +39,8 @@ appServices.factory('TokenInterceptor', function ($q, $window, $location, Sessio
 
         /* Revoke client authentication if 401 is received */
         responseError: function(rejection) {
-            if (rejection != null && rejection.status === 401 && (SessionService.getToken() || SessionService.getIsAuthenticated())) {
-                SessionService.setToken(false);
-                SessionService.setIsAuthenticated(false);
+            if (rejection != null && rejection.status === 401 && SessionService.getIsAuthenticated()) {
+                SessionService.setToken(null);
                 $location.path("/login");
             }
 
